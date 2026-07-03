@@ -17,3 +17,11 @@
 
 - 按模块把新图片/视频/信件放进 `baby/` 对应文件夹
 - 重新运行：`npm run generate`
+
+### 里程碑怎么新增（推荐）
+
+1. 把素材（图片/视频）放进：`baby/milestone/`
+2. 打开并编辑表格文件：`baby/milestone/milestones.csv`
+   - 必填：`filename,title,date`（日期格式：`YYYY-MM-DD`）
+   - 可选：`description`（描述）、`clipSeconds`（视频展示秒数，默认 15）
+3. 运行：`npm run generate` → `git add -A` → `git commit` → `git push`

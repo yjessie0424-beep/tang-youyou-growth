@@ -32,6 +32,10 @@ function isVideo(filename) {
   return /\.(mp4|mov|webm)$/i.test(filename);
 }
 
+function isCsv(filename) {
+  return /\.csv$/i.test(filename);
+}
+
 function numericPrefix(filename) {
   const match = filename.match(/^(\d+)/);
   return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
@@ -189,13 +193,147 @@ function extractKeywords(text, title, limit = 4) {
   return keywords.slice(0, limit);
 }
 
+function parseCsvLine(line) {
+  /** @type {string[]} */
+  const cells = [];
+  let cell = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        const next = line[i + 1];
+        if (next === '"') {
+          cell += '"';
+          i += 1;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        cell += ch;
+      }
+      continue;
+    }
+
+    if (ch === '"') {
+      inQuotes = true;
+      continue;
+    }
+
+    if (ch === ",") {
+      cells.push(cell.trim());
+      cell = "";
+      continue;
+    }
+
+    cell += ch;
+  }
+
+  cells.push(cell.trim());
+  return cells;
+}
+
+function requireDateYmdDash(date) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error(`Invalid date format: "${date}" (expected YYYY-MM-DD)`);
+  }
+}
+
+async function loadMilestones() {
+  const milestoneDir = path.join(babyRoot, "milestone");
+  const milestoneFiles = new Set(
+    (await fs.readdir(milestoneDir, { withFileTypes: true }))
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+  );
+
+  const csvPath = path.join(milestoneDir, "milestones.csv");
+  let csvRaw = null;
+  try {
+    csvRaw = await fs.readFile(csvPath, "utf8");
+  } catch {
+    csvRaw = null;
+  }
+
+  if (!csvRaw) {
+    throw new Error(
+      "Missing milestones table: baby/milestone/milestones.csv (please create it to add milestones)"
+    );
+  }
+
+  const lines = csvRaw
+    .replaceAll("\r\n", "\n")
+    .replaceAll("\r", "\n")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .filter((line) => !line.startsWith("#"));
+
+  if (lines.length < 2) {
+    throw new Error("milestones.csv must include a header row and at least one data row.");
+  }
+
+  const header = parseCsvLine(lines[0]).map((h) => h.trim());
+  const idx = (name) => header.indexOf(name);
+  const filenameIdx = idx("filename");
+  const titleIdx = idx("title");
+  const dateIdx = idx("date");
+  const descIdx = idx("description");
+  const clipIdx = idx("clipSeconds");
+
+  if (filenameIdx < 0 || titleIdx < 0 || dateIdx < 0) {
+    throw new Error('milestones.csv header must include: "filename,title,date"');
+  }
+
+  /** @type {Array<any>} */
+  const milestones = [];
+  for (let i = 1; i < lines.length; i++) {
+    const row = parseCsvLine(lines[i]);
+    const filename = (row[filenameIdx] ?? "").trim();
+    const title = (row[titleIdx] ?? "").trim();
+    const date = (row[dateIdx] ?? "").trim();
+    const description = (descIdx >= 0 ? row[descIdx] : "")?.trim?.() ?? "";
+    const clipSecondsRaw = clipIdx >= 0 ? (row[clipIdx] ?? "").trim() : "";
+
+    if (!filename || !title || !date) {
+      throw new Error(`milestones.csv row ${i + 1} missing required fields (filename/title/date).`);
+    }
+
+    requireDateYmdDash(date);
+
+    if (!milestoneFiles.has(filename)) {
+      throw new Error(`Missing milestone media file: baby/milestone/${filename} (row ${i + 1}).`);
+    }
+
+    const kind = isVideo(filename) ? "video" : "image";
+    const clipSeconds =
+      kind === "video"
+        ? Number(clipSecondsRaw || 15)
+        : undefined;
+
+    milestones.push({
+      filename,
+      title,
+      date,
+      description,
+      kind,
+      ...(kind === "video" ? { clipSeconds } : {}),
+      url: `baby/milestone/${filename}`
+    });
+  }
+
+  milestones.sort((a, b) => a.date.localeCompare(b.date));
+  return milestones;
+}
+
 async function listMedia(dir) {
   const absDir = path.join(babyRoot, dir);
   const entries = await fs.readdir(absDir, { withFileTypes: true });
   const files = entries
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
-    .filter((name) => isImage(name) || isVideo(name))
+    .filter((name) => (isImage(name) || isVideo(name)) && !isCsv(name))
     .sort((a, b) => numericPrefix(a) - numericPrefix(b) || a.localeCompare(b));
 
   return files.map((filename) => ({
@@ -297,75 +435,7 @@ async function main() {
   const months = await listMedia("month");
   const love = await listMedia("love");
   const letters = await generateLetters();
-
-  const milestoneMapping = [
-    {
-      filename: "1.JPG",
-      title: "第一次打疫苗",
-      date: "2026-03-01",
-      description: "",
-      kind: "image"
-    },
-    {
-      filename: "2.MOV",
-      title: "会熟练使用健身架",
-      date: "2026-05-01",
-      description: "",
-      kind: "video",
-      clipSeconds: 15
-    },
-    {
-      filename: "3.JPG",
-      title: "第一次出远门",
-      date: "2026-06-06",
-      description: "",
-      kind: "image"
-    },
-    {
-      filename: "4.JPG",
-      title: "100天纪念",
-      date: "2026-06-01",
-      description: "",
-      kind: "image"
-    },
-    {
-      filename: "5.MOV",
-      title: "跟妈妈的聊天",
-      date: "2026-04-20",
-      description: "",
-      kind: "video",
-      clipSeconds: 15
-    },
-    {
-      filename: "6.MOV",
-      title: "第一次逛商场",
-      date: "2026-06-25",
-      description: "",
-      kind: "video",
-      clipSeconds: 15
-    }
-  ];
-
-  const milestoneDir = path.join(babyRoot, "milestone");
-  const milestoneFiles = new Set(
-    (await fs.readdir(milestoneDir, { withFileTypes: true }))
-      .filter((entry) => entry.isFile())
-      .map((entry) => entry.name)
-  );
-
-  const milestones = milestoneMapping.map((item) => {
-    if (!milestoneFiles.has(item.filename)) {
-      throw new Error(
-        `Missing milestone file: baby/milestone/${item.filename} (required by mapping)`
-      );
-    }
-    return {
-      ...item,
-      url: `baby/milestone/${item.filename}`
-    };
-  });
-
-  milestones.sort((a, b) => a.date.localeCompare(b.date));
+  const milestones = await loadMilestones();
 
   const content = {
     meta: {

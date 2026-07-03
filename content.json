@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-06-25T08:17:44.235Z"
+    "generatedAt": "2026-07-03T10:03:53.189Z"
   },
   "profile": {
     "name": "唐悠悠",
@@ -61,6 +61,11 @@
       "filename": "4.JPG",
       "url": "baby/month/4.JPG",
       "kind": "image"
+    },
+    {
+      "filename": "5.JPG",
+      "url": "baby/month/5.JPG",
+      "kind": "image"
     }
   ],
   "milestones": [
@@ -114,6 +119,15 @@
       "kind": "video",
       "clipSeconds": 15,
       "url": "baby/milestone/6.MOV"
+    },
+    {
+      "filename": "7.MOV",
+      "title": "第一次玩脚脚",
+      "date": "2026-06-29",
+      "description": "",
+      "kind": "video",
+      "clipSeconds": 10,
+      "url": "baby/milestone/7.MOV"
     }
   ],
   "letters": [
@@ -155,6 +169,19 @@
       ],
       "summary": "整个产后月子期间我都是比较幸福的，有你爸爸、外公外婆还有阿姨的帮助，妈妈基本只是在恢复身体以及喂奶，所以哪怕伤…",
       "url": "letters/20260330.html"
+    },
+    {
+      "id": "20260103",
+      "title": "写给宝宝的一封信",
+      "date": "2026-01-03",
+      "keywords": [
+        "写给宝宝的一封信",
+        "妈妈",
+        "爸爸",
+        "肚子"
+      ],
+      "summary": "亲爱的宝宝，你好哇~ 现在是你在妈妈肚子里第34周，还有四十多天我们就要见面啦，这两天你在妈妈肚子里面胎动更加…",
+      "url": "letters/20260103.html"
     }
   ],
   "love": [
@@ -186,6 +213,16 @@
     {
       "filename": "6.JPG",
       "url": "baby/love/6.JPG",
+      "kind": "image"
+    },
+    {
+      "filename": "7.MOV",
+      "url": "baby/love/7.MOV",
+      "kind": "video"
+    },
+    {
+      "filename": "8.jpg",
+      "url": "baby/love/8.jpg",
       "kind": "image"
     }
   ]
