@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "generatedAt": "2026-06-25T08:17:44.235Z"
+  },
+  "profile": {
+    "name": "唐悠悠",
+    "gender": "女宝宝",
+    "birthDate": "2026-02-21",
+    "lunarBirth": "农历 2026年 正月初五",
+    "zodiac": "马",
+    "lucky": "初五迎财神（小财神）"
+  },
+  "hero": {
+    "title": "唐悠悠的成长记录",
+    "subtitle": "健康和快乐是最重要的事情"
+  },
+  "cover": [
+    {
+      "filename": "1.JPEG",
+      "url": "baby/cover/1.JPEG",
+      "kind": "image"
+    },
+    {
+      "filename": "2.JPEG",
+      "url": "baby/cover/2.JPEG",
+      "kind": "image"
+    },
+    {
+      "filename": "3.JPEG",
+      "url": "baby/cover/3.JPEG",
+      "kind": "image"
+    },
+    {
+      "filename": "4.jpg",
+      "url": "baby/cover/4.jpg",
+      "kind": "image"
+    },
+    {
+      "filename": "5.JPG",
+      "url": "baby/cover/5.JPG",
+      "kind": "image"
+    }
+  ],
+  "months": [
+    {
+      "filename": "1.JPG",
+      "url": "baby/month/1.JPG",
+      "kind": "image"
+    },
+    {
+      "filename": "2.jpg",
+      "url": "baby/month/2.jpg",
+      "kind": "image"
+    },
+    {
+      "filename": "3.JPG",
+      "url": "baby/month/3.JPG",
+      "kind": "image"
+    },
+    {
+      "filename": "4.JPG",
+      "url": "baby/month/4.JPG",
+      "kind": "image"
+    }
+  ],
+  "milestones": [
+    {
+      "filename": "1.JPG",
+      "title": "第一次打疫苗",
+      "date": "2026-03-01",
+      "description": "",
+      "kind": "image",
+      "url": "baby/milestone/1.JPG"
+    },
+    {
+      "filename": "5.MOV",
+      "title": "跟妈妈的聊天",
+      "date": "2026-04-20",
+      "description": "",
+      "kind": "video",
+      "clipSeconds": 15,
+      "url": "baby/milestone/5.MOV"
+    },
+    {
+      "filename": "2.MOV",
+      "title": "会熟练使用健身架",
+      "date": "2026-05-01",
+      "description": "",
+      "kind": "video",
+      "clipSeconds": 15,
+      "url": "baby/milestone/2.MOV"
+    },
+    {
+      "filename": "4.JPG",
+      "title": "100天纪念",
+      "date": "2026-06-01",
+      "description": "",
+      "kind": "image",
+      "url": "baby/milestone/4.JPG"
+    },
+    {
+      "filename": "3.JPG",
+      "title": "第一次出远门",
+      "date": "2026-06-06",
+      "description": "",
+      "kind": "image",
+      "url": "baby/milestone/3.JPG"
+    },
+    {
+      "filename": "6.MOV",
+      "title": "第一次逛商场",
+      "date": "2026-06-25",
+      "description": "",
+      "kind": "video",
+      "clipSeconds": 15,
+      "url": "baby/milestone/6.MOV"
+    }
+  ],
+  "letters": [
+    {
+      "id": "20260624",
+      "title": "侧脸的一个微笑",
+      "date": "2026-06-24",
+      "keywords": [
+        "侧脸的一个微笑",
+        "妈妈",
+        "床上",
+        "吃奶"
+      ],
+      "summary": "宝贝，今天是你出生的第123天。当我坐到电脑面前，想着要记录点什么的时候，第一个浮现在我脑海中的就是这两天喂你…",
+      "url": "letters/20260624.html"
+    },
+    {
+      "id": "20260506",
+      "title": "依赖妈妈的幸福",
+      "date": "2026-05-06",
+      "keywords": [
+        "依赖妈妈的幸福",
+        "小时",
+        "开始",
+        "外婆"
+      ],
+      "summary": "亲爱的宝贝，今天是你第74天。最近你有很大的变化哦，抬头的时间更长了，脖子更加有劲儿了，不像之前那般头在空中摇…",
+      "url": "letters/20260506.html"
+    },
+    {
+      "id": "20260330",
+      "title": "第一次为宝宝流泪",
+      "date": "2026-03-30",
+      "keywords": [
+        "第一次为宝宝流泪",
+        "妈妈",
+        "睡袋",
+        "身体"
+      ],
+      "summary": "整个产后月子期间我都是比较幸福的，有你爸爸、外公外婆还有阿姨的帮助，妈妈基本只是在恢复身体以及喂奶，所以哪怕伤…",
+      "url": "letters/20260330.html"
+    }
+  ],
+  "love": [
+    {
+      "filename": "1.jpg",
+      "url": "baby/love/1.jpg",
+      "kind": "image"
+    },
+    {
+      "filename": "2.JPG",
+      "url": "baby/love/2.JPG",
+      "kind": "image"
+    },
+    {
+      "filename": "3.jpg",
+      "url": "baby/love/3.jpg",
+      "kind": "image"
+    },
+    {
+      "filename": "4.JPG",
+      "url": "baby/love/4.JPG",
+      "kind": "image"
+    },
+    {
+      "filename": "5.JPG",
+      "url": "baby/love/5.JPG",
+      "kind": "image"
+    },
+    {
+      "filename": "6.JPG",
+      "url": "baby/love/6.JPG",
+      "kind": "image"
+    }
+  ]
+}

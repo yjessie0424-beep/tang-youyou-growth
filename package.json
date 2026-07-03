@@ -1,0 +1,10 @@
+{
+  "name": "tang-youyou-growth",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-content.mjs",
+    "serve": "python3 -m http.server 5173"
+  }
+}
+
